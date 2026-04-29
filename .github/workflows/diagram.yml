@@ -1,9 +1,8 @@
 name: Render Schema & Publish Release
-
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - master
 
 jobs:
   render-and-release:
