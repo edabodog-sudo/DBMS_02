@@ -341,8 +341,7 @@ or why not.
 
 > *Your answer:*No, schema.svg is not shown as an untracked file.
 Git already knows this file because it was tracked before.
-So when you delete it, Git shows it as “deleted”, not “untracked”.<img width="1083" height="380" alt="Screenshot 2026-04-29 015135" src="https://github.com/user-attachments/assets/11428a81-e864-4810-afa9-26a4ba9aa021" />
-<img width="1083" height="380" alt="Screenshot 2026-04-29 015135" src="https://github.com/user-attachments/assets/a23b3236-575d-4f99-b45d-64724e09afe5" />
+So when you delete it, Git shows it as “deleted”, not “untracked”.
 
 
 ---
@@ -587,7 +586,7 @@ repeated runs.
 > *Your answer:***Question 5.2:** The step `apt-get install plantuml` takes roughly 20–30 seconds
 on every run. In a larger team with many releases per day, this adds up. Name
 one GitHub Actions mechanism that could eliminate this installation time on
-repeated runs.<img width="1190" height="767" alt="Screenshot 2026-04-29 144107" src="https://github.com/user-attachments/assets/e9dbb0ec-1671-4997-b2fa-bc2042e32c21" />
+repeated runs.
 
 
 ---
@@ -614,9 +613,7 @@ Open your fork on GitHub and navigate to the **Actions** tab.
 > **Screenshot 4:** Take a screenshot of the completed GitHub Actions run
 > showing all four steps with green checkmarks, and insert it here.
 >
-> `[insert screenshot]`<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/67718ed2-0cf8-4bc0-898f-ac00e0984efe" />
-<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/d2eafb33-9350-44d1-b3c3-2782bc8a98c8" />
-<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/f8c82962-281b-4a93-b0ea-057647258917" />
+> `[insert screenshot]`
 <img width="1190" height="767" alt="Screenshot 2026-04-29 144107" src="https://github.com/user-attachments/assets/cb001623-a3b4-4bbd-8cf9-5fbe01fc1105" />
 
 
@@ -666,12 +663,7 @@ lose?
 
 > *Your answer:*If the diagram was a .drawio file or a PNG, Git could not show the real changes.
 You would only see “file changed”, not what changed inside the picture.
-With a .puml file, you keep all the text changes, so you can see the full history.<img width="1052" height="461" alt="Screenshot 2026-04-29 123320" src="https://github.com/user-attachments/assets/e895f1cc-ab1a-4d05-8d99-435c6bdad993" />
-<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/ee87b5b9-0036-4b15-b778-aa49df2c27b9" />
-<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/763f8be6-fc8c-4aab-8957-107671ec8911" />
-<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/c923f561-1c8d-46fe-a3df-d08d0e002c9d" />
-<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/059ff3d7-0463-4a7d-a3d7-878cfd8ff6bc" />
-<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/c098a5c6-871b-4268-afda-7d2d9f97723e" />
+With a .puml file, you keep all the text changes, so you can see the full history.
 
 
 **Question B – Collaboration:**
@@ -680,14 +672,18 @@ one adds a `Genre` entity, the other corrects a cardinality. When they merge,
 Git can show a textual diff of the conflict. Would this be possible with a
 binary diagram file? What practical consequence does this have for a team?
 
-> *Your answer:*
+> *Your answer:* No, this is not possible with a binary file.  
+Git cannot show text differences inside a PNG or a draw.io file.  
+This makes teamwork harder, because people cannot see or fix merge conflicts easily.**
 
 **Question C – Tag vs. branch for releases:**
 You tagged a specific commit as `v1.0.0` rather than pushing to a branch called
 `release`. What guarantee does an annotated tag offer that a branch cannot?
 Under what circumstance would someone want to use a branch instead?
 
-> *Your answer:*
+> *Your answer:*An annotated tag always points to one exact commit and cannot move.
+A branch can move when people add new commits, so it does not give a fixed guarantee.
+Someone may use a branch when they want to keep working on a release with updates.
 
 **Question D – The value of CI for documentation:**
 Before this exercise, updating a diagram meant: edit the source, export an
@@ -695,14 +691,17 @@ image, commit the image, hope the export matched the source. Describe in two
 sentences what the CI pipeline eliminates, and what new guarantee it provides
 instead.
 
-> *Your answer:*
+> *Your answer:*The CI pipeline removes the need to export the image by hand.
+It gives a new guarantee: the SVG is always made automatically from the .puml file, so the diagram and the source always match.
+
 
 > **Screenshot 6:** Take a screenshot of your terminal showing
 > `git log --oneline` with all commits from this exercise visible, then open
 > `schema.svg` from the Release in the same browser window alongside it.
 > Capture both in one screenshot and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="1192" height="862" alt="Screenshot 2026-04-29 173329" src="https://github.com/user-attachments/assets/ae7ac409-2665-47eb-a8e8-fec3cadc9b64" />
+
 
 ---
 
