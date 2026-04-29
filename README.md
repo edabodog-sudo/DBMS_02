@@ -65,10 +65,11 @@ git --version
 > **Screenshot 1:** Take a screenshot of your terminal showing all three
 > successful version checks and insert it here.
 >
-> ![screenshot1](https://Screenshot 2026-04-27 135025.png)
-> ![screenshot1](Screenshot 2026-04-27 135400.png)
+<img width="790" height="130" alt="Screenshot 2026-04-27 135400" src="https://github.com/user-attachments/assets/f46e410f-cc19-4305-a339-057a2881bb6c" />
+<img width="790" height="130" alt="Screenshot 2026-04-27 135400" src="https://github.com/user-attachments/assets/166edea1-dbbc-402e-8d08-52e22e701801" />
 
----
+
+
 
 ## 0 – Fork and Clone the Repository
 
@@ -217,20 +218,27 @@ git commit -m "feat: complete ER schema for library management"
 ellipses). PlantUML uses Crow's Foot notation. Describe one concrete difference
 in how an N:M relationship is represented in each notation.
 
-> *Your answer:*
+> *Your answer:*In Chen notation, an N:M relationship is shown using a diamond connected to both entities, with cardinalities written on the connecting lines.
+In Crow’s Foot notation, there is no diamond: the N:M relationship is represented by an associative table and crow’s‑foot symbols on each side.
+So Chen uses a separate relationship shape, while Crow’s Foot encodes the relationship directly in the links.
 
 **Question 2.2:** What would happen if you wrote `@startuml Library` instead of
 `@startuml` at the top of `schema.puml`? Try it locally (`plantuml -tsvg schema.puml`)
 and observe the output filename. Why would this break the workflow?
 
-> *Your answer:*
+> *Your answer:*If I write @startuml Library, PlantUML makes a file named Library.svg.
+But the workflow looks for a file named schema.svg.
+So the workflow cannot find the file, and it stops.
 
 **Question 2.3:** The `Author`–`Book` relationship is N:M. Does your PlantUML
 diagram require you to model the intermediate join table explicitly, or does
 PlantUML abstract it away? At which stage of the design process would the join
 table appear?
 
-> *Your answer:*
+> *Your answer:*PlantUML does not need you to draw the join table for an N:M relationship.
+PlantUML shows the N:M link automatically with crow’s‑foot symbols.
+The join table appears later, when you make the real database tables.
+
 
 ---
 
@@ -297,7 +305,7 @@ Open `schema.svg` in a browser or SVG viewer.
 > **Screenshot 2:** Take a screenshot of `schema.svg` open in your browser,
 > showing all five entities and all four relationships, and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="989" height="611" alt="Screenshot 2026-04-29 012327" src="https://github.com/user-attachments/assets/a1fe7a98-e76d-4095-9ac4-4fc01c73c417" />
 
 Once the diagram looks correct, tell Git to ignore the generated artifact.
 The workflow will recreate it on every release:
@@ -325,13 +333,17 @@ git commit -m "chore: ignore generated SVG artifact"
 Name one shell command you could use to check the exit code of the last command
 and verify that the render succeeded, without opening the SVG file.
 
-> *Your answer:*
+> *Your answer:*You can use the command echo $? in the shell.
 
 **Question 3.2:** Delete `schema.svg` and run `plantuml -tsvg schema.puml` again.
 Then run `git status`. Is `schema.svg` shown as an untracked file? Explain why
 or why not.
 
-> *Your answer:*
+> *Your answer:*No, schema.svg is not shown as an untracked file.
+Git already knows this file because it was tracked before.
+So when you delete it, Git shows it as “deleted”, not “untracked”.<img width="1083" height="380" alt="Screenshot 2026-04-29 015135" src="https://github.com/user-attachments/assets/11428a81-e864-4810-afa9-26a4ba9aa021" />
+<img width="1083" height="380" alt="Screenshot 2026-04-29 015135" src="https://github.com/user-attachments/assets/a23b3236-575d-4f99-b45d-64724e09afe5" />
+
 
 ---
 
@@ -399,7 +411,8 @@ git tag
 > **Screenshot 3:** Take a screenshot of `git log --oneline -5` showing your
 > commits in order, and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="1083" height="380" alt="Screenshot 2026-04-29 015135" src="https://github.com/user-attachments/assets/43686c9e-acb3-4b2a-84f0-f8a950f27c9e" />
+
 
 > **Caveat:** Tags are not pushed automatically with `git push origin main`.
 > You must push them explicitly. Forgetting this step means the workflow never
@@ -410,12 +423,16 @@ git tag
 **Question 4.1:** Run `git push origin main`. Then open the **Actions** tab in
 your fork on GitHub. Did any workflow run trigger? Explain why or why not.
 
-> *Your answer:*
+> *Your answer:*No, no workflow starts.
+The workflow only runs when you push a tag (like v1.0.0), not when you push to main.
+So git push origin main does nothing for the workflow.
 
 **Question 4.2:** Run `git tag -v v1.0.0`. What information is shown that
 `git tag` alone does not display? What does the `-v` flag verify?
 
-> *Your answer:*
+> *Your answer:*git tag -v v1.0.0 shows extra information: the GPG signature and who signed the tag.
+git tag alone only shows the tag name.
+The -v flag checks (verifies) that the tag is signed by a trusted key.
 
 ---
 
@@ -558,14 +575,20 @@ git commit -m "ci: render PlantUML schema and publish GitHub Release on tag"
 if you replaced it with `on: push: branches: ['main']`? Would the release
 workflow still make sense? Why or why not?
 
-> *Your answer:*
+> *Your answer:*If you change it to on: push: branches: ['main'], the workflow runs every time you push to main.
+This does not make sense, because a release should only happen when you create a version tag (v1.0.0).
+If it runs on main, it would create a release for every small change, which is wrong.
 
 **Question 5.2:** The step `apt-get install plantuml` takes roughly 20–30 seconds
 on every run. In a larger team with many releases per day, this adds up. Name
 one GitHub Actions mechanism that could eliminate this installation time on
 repeated runs.
 
-> *Your answer:*
+> *Your answer:***Question 5.2:** The step `apt-get install plantuml` takes roughly 20–30 seconds
+on every run. In a larger team with many releases per day, this adds up. Name
+one GitHub Actions mechanism that could eliminate this installation time on
+repeated runs.<img width="1190" height="767" alt="Screenshot 2026-04-29 144107" src="https://github.com/user-attachments/assets/e9dbb0ec-1671-4997-b2fa-bc2042e32c21" />
+
 
 ---
 
@@ -591,7 +614,11 @@ Open your fork on GitHub and navigate to the **Actions** tab.
 > **Screenshot 4:** Take a screenshot of the completed GitHub Actions run
 > showing all four steps with green checkmarks, and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/67718ed2-0cf8-4bc0-898f-ac00e0984efe" />
+<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/d2eafb33-9350-44d1-b3c3-2782bc8a98c8" />
+<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/f8c82962-281b-4a93-b0ea-057647258917" />
+<img width="1190" height="767" alt="Screenshot 2026-04-29 144107" src="https://github.com/user-attachments/assets/cb001623-a3b4-4bbd-8cf9-5fbe01fc1105" />
+
 
 Once the workflow has completed, navigate to **Releases** in the right sidebar.
 
@@ -603,7 +630,8 @@ Once the workflow has completed, navigate to **Releases** in the right sidebar.
 > release title, the release notes, and the `schema.svg` download link, and
 > insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="1250" height="785" alt="Screenshot 2026-04-29 144355" src="https://github.com/user-attachments/assets/b184aced-9f80-4d2f-89b3-56d3e4279971" />
+
 
 ### Questions for Task 6
 
@@ -612,14 +640,17 @@ Once the workflow has completed, navigate to **Releases** in the right sidebar.
 Which takes longer, and by approximately what factor? What does this suggest
 about where optimisation effort should be directed?
 
-> *Your answer:*
+> *Your answer:*The “Install PlantUML” step is much longer than the “Render SVG” step.
+It is longer by many times (about 10× or more).
+This means we should optimise the installation step, not the rendering step.
 
 **Question 6.2:** Download `schema.svg` from the Release page and compare it
 to the `schema.svg` you rendered locally with `plantuml -tsvg schema.puml`.
 Are they identical? What does this tell you about the reproducibility of the
 build process?
 
-> *Your answer:*
+> *Your answer:*Yes, the two schema.svg files are the same.
+This shows that the build process gives the same result every time.
 
 ---
 
@@ -633,7 +664,15 @@ your schema. What would be different if you had stored the diagram as a
 `.drawio` file or a PNG instead of a `.puml` file? What information would you
 lose?
 
-> *Your answer:*
+> *Your answer:*If the diagram was a .drawio file or a PNG, Git could not show the real changes.
+You would only see “file changed”, not what changed inside the picture.
+With a .puml file, you keep all the text changes, so you can see the full history.<img width="1052" height="461" alt="Screenshot 2026-04-29 123320" src="https://github.com/user-attachments/assets/e895f1cc-ab1a-4d05-8d99-435c6bdad993" />
+<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/ee87b5b9-0036-4b15-b778-aa49df2c27b9" />
+<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/763f8be6-fc8c-4aab-8957-107671ec8911" />
+<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/c923f561-1c8d-46fe-a3df-d08d0e002c9d" />
+<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/059ff3d7-0463-4a7d-a3d7-878cfd8ff6bc" />
+<img width="821" height="203" alt="Screenshot 2026-04-29 123205" src="https://github.com/user-attachments/assets/c098a5c6-871b-4268-afda-7d2d9f97723e" />
+
 
 **Question B – Collaboration:**
 Imagine two people editing `schema.puml` simultaneously on separate branches –
